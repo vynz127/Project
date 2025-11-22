@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<title>My Example</title>    
+<title>My Example</title>
+
 <!-- 
 ======================================================================
   CSS
@@ -8,61 +9,73 @@
 -->
 <style>
     :root {
-        --aih-padding: 3rem 1.5rem;
-        --aih-bg-color: #fff;
-        --aih-text-color: #333;
-        --aih-headline-color: #000;
-        --aih-cta-bg: #6366f1;
-        --aih-cta-hover-bg: #4f46e5;
-        --aih-cta-text-color: #fff;
-        --aih-max-width: 1100px;
-        --aih-gap: 2rem;
-        --aih-accent-1: #6366f1;
-        --aih-accent-2: #38bdf8;
+        /*
+            Using an image from picsum.photos for demonstration.
+            Replace with your own image.
+        */
+        --fbh-bg-image: url('https://picsum.photos/id/1018/1600/1000');
+        --fbh-min-height: 80vh;
+        --fbh-padding: 3rem 1.5rem;
+        --fbh-text-color: #ffffff;
+        --fbh-overlay-color: rgba(17, 24, 39, 0.5);
+        --fbh-cta-bg: #fff;
+        --fbh-cta-text-color: #111827;
+        --fbh-cta-hover-bg: #f3f4f6;
     }
-    .anim-svg-hero {
+    .fixed-bg-hero {
         box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        min-height: var(--fbh-min-height);
+        padding: var(--fbh-padding);
         width: 100%;
-        background-color: var(--aih-bg-color);
-        color: var(--aih-text-color);
-        padding: var(--aih-padding);
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden;
+        text-align: center;
+        
+        /* The Parallax-Style Effect */
+        background-image: var(--fbh-bg-image);
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
-    .anim-svg-hero * {
+    .fixed-bg-hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: var(--fbh-overlay-color);
+        z-index: 1;
+    }
+    .fixed-bg-hero * {
          box-sizing: border-box;
     }
-    .anim-svg-hero-container {
-        width: 100%;
-        max-width: var(--aih-max-width);
-        display: flex;
-        flex-direction: column;
-        gap: var(--aih-gap);
+    .fbh-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1000px;
+        color: var(--fbh-text-color);
     }
-    .anim-svg-hero-content {
-        text-align: center;
-    }
-    .anim-svg-hero-title {
-        margin: 0 0 1rem 0;
-        font-size: clamp(2.5rem, 6vw, 3.5rem);
-        color: var(--aih-headline-color);
+    .fbh-content .title {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
         font-weight: 800;
-        line-height: 1.2;
+        line-height: 1.1;
+        margin: 0 0 1rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    .anim-svg-hero-description {
-        margin: 0 auto 2.5rem auto;
-        font-size: 1.15rem;
-        line-height: 1.6;
-        max-width: 500px;
+    .fbh-content .subtitle {
+        font-size: clamp(1.1rem, 3vw, 1.25rem);
+        margin: 0 0 2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
-    .anim-svg-hero-cta {
+    .fbh-content .cta {
         display: inline-block;
-        background-color: var(--aih-cta-bg);
-        color: var(--aih-cta-text-color);
-        padding: 1rem 2.2rem;
+        background-color: var(--fbh-cta-bg);
+        color: var(--fbh-cta-text-color);
+        padding: 0.9rem 2.2rem;
         border-radius: 8px;
         border: none;
         font-size: 1.05rem;
@@ -71,63 +84,20 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
-    .anim-svg-hero-cta:hover {
-        background-color: var(--aih-cta-hover-bg);
-    }
-    .anim-svg-hero-illustration {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 300px;
-    }
-    .anim-svg-hero-illustration svg {
-        width: 100%;
-        max-width: 450px;
-        height: auto;
-    }
-    .anim-svg-hero-illustration .draw-line {
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-        animation: draw-me 3s ease-in-out forwards infinite;
-    }
-    .anim-svg-hero-illustration .draw-line-delay1 { animation-delay: 0.2s; }
-    .anim-svg-hero-illustration .draw-line-delay2 { animation-delay: 0.4s; }
-    
-    .anim-svg-hero-illustration .fade-in {
-        opacity: 0;
-        animation: fade-me-in 1s ease-in forwards infinite;
-        animation-delay: 1s;
-    }
-     .anim-svg-hero-illustration .fade-in-delay1 { animation-delay: 1.2s; }
-
-    @keyframes draw-me {
-        50%, 100% { stroke-dashoffset: 0; }
-    }
-    @keyframes fade-me-in {
-        to { opacity: 1; }
+    .fbh-content .cta:hover {
+        background-color: var(--fbh-cta-hover-bg);
     }
 
-    @media (min-width: 768px) {
-        .anim-svg-hero {
-             padding-top: 5rem;
-             padding-bottom: 5rem;
-        }
-        .anim-svg-hero-container {
-            flex-direction: row-reverse; /* Puts illustration on the left */
-            align-items: center;
-        }
-        .anim-svg-hero-content {
-            flex-basis: 50%;
-            text-align: left;
-            padding-left: 1.5rem;
-        }
-        .anim-svg-hero-description, .anim-svg-hero-cta {
-            margin-left: 0;
-            margin-right: 0;
-        }
-        .anim-svg-hero-illustration {
-            flex-basis: 50%;
-        }
+    /* Extra content section for demonstrating the scroll effect */
+    .scroll-demo-content-fb {
+        padding: 4rem 1.5rem;
+        background-color: #fff;
+        color: #111827;
+    }
+    .scroll-demo-content-fb p {
+        max-width: 700px;
+        margin: 0 auto 1rem;
+        line-height: 1.6;
     }
 </style>
 
@@ -137,27 +107,16 @@
   - Place this in your <body> where you want the component to appear.
 ======================================================================
 -->
-<section class="anim-svg-hero">
-    <div class="anim-svg-hero-container">
-        <div class="anim-svg-hero-content">
-            <h1 class="anim-svg-hero-title">Sync Your Ideas with Reality</h1>
-            <p class="anim-svg-hero-description">
-                MindMesh is the all-in-one platform for creative teams to brainstorm, collaborate, and bring their next big project to life seamlessly.
-            </p>
-            <a href="#" role="button" class="anim-svg-hero-cta">Sign Up Free</a>
-        </div>
-        <div class="anim-svg-hero-illustration">
-            <svg viewBox="0 0 459 397" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="svg-anim-title">
-                <title id="svg-anim-title">An animated illustration of interconnected nodes representing collaboration.</title>
-                <path class="draw-line" d="M38 102L188 202L38 302" stroke="var(--aih-accent-2)" stroke-width="12" stroke-linecap="round"/>
-                <path class="draw-line draw-line-delay1" d="M188 202L358 48" stroke="var(--aih-accent-2)" stroke-width="12" stroke-linecap="round"/>
-                <path class="draw-line draw-line-delay2" d="M188 202L358 354" stroke="var(--aih-accent-2)" stroke-width="12" stroke-linecap="round"/>
-                <circle class="fade-in" cx="38" cy="102" r="38" fill="var(--aih-accent-1)"/>
-                <circle class="fade-in" cx="38" cy="302" r="28" fill="var(--aih-accent-1)"/>
-                <circle class="fade-in" cx="358" cy="48" r="28" fill="var(--aih-accent-1)"/>
-                <circle class="fade-in" cx="358" cy="354" r="38" fill="var(--aih-accent-1)"/>
-                <circle class="fade-in fade-in-delay1" cx="188" cy="202" r="54" fill="var(--aih-accent-1)"/>
-            </svg>
-        </div>
+<section class="fixed-bg-hero">
+    <div class="fbh-content">
+        <h1 class="title">Create a Lasting Impression</h1>
+        <p class="subtitle">This simple and elegant effect adds a layer of depth, making your content more engaging and memorable.</p>
+        <a href="#" role="button" class="cta">Get Started</a>
     </div>
+</section>
+
+<!-- This section is just for demonstration to create scroll space -->
+<section class="scroll-demo-content-fb">
+    <p>Scroll down to see the fixed background effect in action. Notice how the content in this section scrolls normally over the stationary background image of the hero above.</p>
+    <p>The effect is created with a single line of CSS, `background-attachment: fixed;`, which "fixes" the background image to the viewport, while the rest of the page scrolls over it.</p>
 </section>
